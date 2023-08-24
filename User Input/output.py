@@ -16,17 +16,29 @@ def determine_reply(user_input_int):
     else:
         return 'Sounds like the right amount of coffee to start the day.'
 
-# Ask for user input
-user_coffee_input = input('How many cups of coffee have you had today? ')
+# Determines the correct reply to the second question
+def determine_second_reply(user_go_input):
+    if user_go_input.lower() == 'yes':
+        return 'Ok, let\'s go!'
+    elif user_go_input.lower() == 'no':
+        return 'Ok, see you later'
+    else:
+        return 'Sorry, I don\'t understand your answer. I need a yes or a no.'
 
-# Process the answer to get the right reply, and print that reply
-reply = get_reply(user_coffee_input)
-print(reply)
+reply = ''
 
-while reply == 'Sorry, I don\'t understand your answer. I was looking for a number, not a string.':
+while reply == '' or reply == 'Sorry, I don\'t understand your answer. I was looking for a number, not a string.':
     # Ask for user input
     user_coffee_input = input('How many cups of coffee have you had today? ')
-    
+
     # Process the answer to get the right reply, and print that reply
     reply = get_reply(user_coffee_input)
-    print(reply)
+
+    if reply == 'Should we go grab a coffee? I could use one too.':
+        second_reply = ''
+        while second_reply != 'Ok, let\'s go!' and second_reply != 'Ok, see you later':
+            user_go_input = input(reply + ' ')
+            second_reply = determine_second_reply(user_go_input)
+            print(second_reply)
+    else:
+        print(reply)
